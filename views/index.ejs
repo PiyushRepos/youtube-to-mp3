@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Downloader</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <form action="/" method="POST">
+    <input type="text" name="url" placeholder="Enter YouTube URL" required>
+    <button type="submit" class="btn">Download</button>
+  </form>
+
+  <br>
+
+  <% if (videoLink) { %>
+    <a href="<%= videoLink %>">Download your video</a>
+  <% } %>
+</body>
+</html>
