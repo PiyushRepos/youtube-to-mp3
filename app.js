@@ -22,22 +22,28 @@ app.post("/", async (req, res) => {
     return res.status(400).send('URL is required');
   }
 
-  const apiRes = `https://youtube-mp3-downloader2.p.rapidapi.com/ytmp3/ytmp3/custom/?url=${url}&quality=320`;
+  // const apiRes = `https://youtube-to-mp315.p.rapidapi.com/download`;
   const options = {
-    method: 'GET',
+    method: 'POST',
+    url: 'https://youtube-to-mp315.p.rapidapi.com/download',
+    params: {
+      url: url,
+      format: 'mp3'
+    },
     headers: {
       'x-rapidapi-key': process.env.API_KEY,
-      'x-rapidapi-host': process.env.API_HOST
-    }
+      'x-rapidapi-host': process.env.API_HOST,
+      'Content-Type': 'application/json'
+    },
+    data: {}
   };
 
   try {
-    const result = await axios.get(apiRes, options);
-    // const result = await response.json();
-    console.log(result.data.dlink);
+    const result = await axios.request(options);
+    console.log(result.data.downloadUrl);
 
     // Render the page with the video link
-    res.render("index.ejs", { videoLink: result.data.dlink});
+    res.render("index.ejs", { videoLink: result.data.downloadUrl});
   } catch (error) {
     console.error(error);
     res.status(500).send('Something went wrong!');
